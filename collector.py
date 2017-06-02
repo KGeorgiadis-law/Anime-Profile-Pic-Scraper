@@ -135,6 +135,3 @@ def create_dicts_from_character_id(character_id):
 
     return url_to_char_id, url_to_char_name
 
-char_id = input("Please enter a char id: ")
-print(create_dicts_from_character_id(char_id))
-
