@@ -1,12 +1,11 @@
-#!/usr/bin/python3
 
 # coding: utf-8
 
 # !Py3.5.2
 
 # # Anime Profile Pic Scraper
-#
-# A bot to:
+# 
+# A bot to: 
 # 1. Cycle through all the characters in https://myanimelist.net starting from https://myanimelist.net/character/1 ;
 # 2. For each character, navigate to its pictures page eg https://myanimelist.net/character/1/Spike_Spiegel/pictures *
 # (as a side note, I could perhaps search instead for https://myanimelist.net/character/1/<???>/pictures) *
@@ -14,9 +13,9 @@
 # 4. Create a new folder with the ID + Profile name of the Character (collaborator)
 # 5. Save all pictures in this new folder (collaborator)
 # 6. Repeat (collaborator)
-#
+# 
 # ## How will it do each step?
-#
+# 
 # 1. Character IDs are incremental - we can simply start from https://myanimelist.net/character/1 and then add 1
 # until we receive an error; As a failsafe, consider saving the enumerator in an outside text file.
 # 2. Two possible methods using bs4:
@@ -76,7 +75,6 @@ def create_dicts_from_character_id(character_id):
 
     # join the url with the prefix to make it valid
     pictures_url = link_prefix+a_tag_href
-    print(pictures_url)
 
     # Method 2:
     # couldn't get this to work - but this seems more complicated than method one, which seems to work just fine
@@ -130,9 +128,13 @@ def create_dicts_from_character_id(character_id):
         url_to_char_id[url] = character_id
         url_to_char_name[url] = character_name
 
-    for key, value in url_to_char_id.items():
-        print("{}: {}".format(key, value))
-    for key, value in url_to_char_name.items():
-        print("{}: {}".format(key, value))
+    #for key, value in url_to_char_id.items():
+    #    print("{}: {}".format(key, value))
+    #for key, value in url_to_char_name.items():
+    #    print("{}: {}".format(key, value))
 
     return url_to_char_id, url_to_char_name
+
+char_id = input("Please enter a char id: ")
+print(create_dicts_from_character_id(char_id))
+

@@ -1,4 +1,4 @@
-from web_scraper import *
+from collector import *
 from data_handler import *
 
 for i in range(1, 10000):
