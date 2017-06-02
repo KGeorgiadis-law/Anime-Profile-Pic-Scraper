@@ -37,11 +37,11 @@ link_prefix = "https://myanimelist.net"
 # * Character IDs are incremental - we can simply start from https://myanimelist.net/character/1 and then add 1 until we receive an error. 
 # * As a failsafe, **consider saving the enumerator in an outside text file**.
 
-# In[4]:
+
 
 #while True: #uncomment this for production and indent everything below
 
-# In[5]:
+
 
 # starting up
 character_id = 1
@@ -52,7 +52,7 @@ character_page_html = urlopen(character_page_url, timeout=30)
 #print(character_page_html.info()) #remove for production
 
 
-# In[6]:
+
 
 #create a Beautiful Soup object
 character_soup = BeautifulSoup(character_page_html, "html.parser")
@@ -66,7 +66,7 @@ character_soup = BeautifulSoup(character_page_html, "html.parser")
 #     1. Scrape link to the pages by navigating to its position on the page
 #     2. Search each `<a>` tag on the page for https://myanimelist.net/character/1/<???>/pictures
 
-# In[7]:
+
 
 # Method 1:
 
@@ -80,9 +80,6 @@ a_tag_href = div.a.get('href')
 #join the url with the prefix to make it valid
 pictures_url = link_prefix+a_tag_href
 print(pictures_url)
-
-
-# In[8]:
 
 # Method 2: 
 # couldn't get this to work - but this seems more complicated than method one, which seems to work just fine
@@ -99,16 +96,13 @@ print(pictures_url)
 # 
 # * open a soup object to the profile pictures page
 # * Scrape all links to the profile pictures
-# * Use bs4 to create a list of all the links * (idea, how about using a <a href="https://docs.python.org/3.3/tutorial/datastructures.html"><strong>set rather than a list</strong></a>? Sets naturally check for duplicates and eliminate them - thus ensuring a picture is not downloaded twice). *
-
-# In[9]:
+# * Use bs4 to create a list of all the links * (idea, how about using a
+# <a href="https://docs.python.org/3.3/tutorial/datastructures.html"><strong>set rather than a list</strong></a>?
+# Sets naturally check for duplicates and eliminate them - thus ensuring a picture is not downloaded twice). *
 
 pictures_html = urlopen(pictures_url, timeout=30)
 pictures_soup = BeautifulSoup(pictures_html, "html.parser")
 #print(pictures_soup.prettify()) #remove for production
-
-
-# In[20]:
 
 pictures_div = pictures_soup.find(id="content")
 
@@ -118,7 +112,6 @@ picture_urls = set()
 for picture in pictures_set:
     picture_url = picture.get("src")
     picture_urls.add(picture_url)
-
 
 # ## Step 4: Saving
 # 
@@ -130,13 +123,8 @@ for picture in pictures_set:
 # `unique_char_names = set(blablabla)
 # char_names_to_char_ids = dict(zip(unique_char_names, [i for i in range(len(unique_char_names)])`
 
-# In[14]:
-
 #get character name
 character_name = pictures_soup.find("meta", property="og:title").get("content")
-
-
-# In[28]:
 
 #make dict from url to character id
 url_to_char_id = dict()
@@ -146,9 +134,6 @@ url_to_char_name = dict()
 for url in picture_urls:
     url_to_char_id[url] = character_id
     url_to_char_name[url] = character_name
-
-
-# In[27]:
 
 for key, value in url_to_char_id.items():
     print("{}: {}".format(key, value))
