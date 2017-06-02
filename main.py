@@ -76,7 +76,6 @@ def create_dicts_from_character_id(character_id):
 
     # join the url with the prefix to make it valid
     pictures_url = link_prefix+a_tag_href
-    print(pictures_url)
 
     # Method 2:
     # couldn't get this to work - but this seems more complicated than method one, which seems to work just fine
@@ -130,9 +129,12 @@ def create_dicts_from_character_id(character_id):
         url_to_char_id[url] = character_id
         url_to_char_name[url] = character_name
 
-    for key, value in url_to_char_id.items():
-        print("{}: {}".format(key, value))
-    for key, value in url_to_char_name.items():
-        print("{}: {}".format(key, value))
+    #for key, value in url_to_char_id.items():
+    #    print("{}: {}".format(key, value))
+    #for key, value in url_to_char_name.items():
+    #    print("{}: {}".format(key, value))
 
     return url_to_char_id, url_to_char_name
+
+char_id = input("Please enter a char id: ")
+print(create_dicts_from_character_id(char_id))
